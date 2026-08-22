@@ -180,3 +180,9 @@ AI APIも内蔵しません。
 GitHub Pagesで利用できる無料Webツールとして公開します。
 
 インストールは必要ありません。
+
+---
+
+## ライセンス
+
+[MIT License](LICENSE) (c) 2026 tk030
