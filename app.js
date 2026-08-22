@@ -37,6 +37,12 @@
     isCustomEdited: false
   };
 
+  // Timer Lifecycle Management
+  let focusTimer = null;
+  let copyButtonTimer = null;
+  let toastTimer = null;
+  let toastRemoveTimer = null;
+
   // ==========================================================================
   // 3. DOM Elements Cache
   // ==========================================================================
@@ -95,7 +101,8 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (targetView === 'form') {
-      setTimeout(() => dom.inputs.project.focus(), 150);
+      if (focusTimer) clearTimeout(focusTimer);
+      focusTimer = setTimeout(() => dom.inputs.project.focus(), 150);
       updateStepProgress();
     }
   }
@@ -285,12 +292,13 @@ ${modifiersText}
    */
   function animateCopyButton(btn) {
     if (!btn) return;
+    if (copyButtonTimer) clearTimeout(copyButtonTimer);
     const originalText = btn.querySelector('.btn-text') ? btn.querySelector('.btn-text').textContent : btn.textContent;
     btn.classList.add('copied');
     if (btn.querySelector('.btn-text')) {
       btn.querySelector('.btn-text').textContent = 'コピー完了！';
     }
-    setTimeout(() => {
+    copyButtonTimer = setTimeout(() => {
       btn.classList.remove('copied');
       if (btn.querySelector('.btn-text')) {
         btn.querySelector('.btn-text').textContent = originalText;
@@ -304,6 +312,12 @@ ${modifiersText}
    * @param {'success' | 'error'} type
    */
   function showToast(message, type = 'success') {
+    if (toastTimer) clearTimeout(toastTimer);
+    if (toastRemoveTimer) clearTimeout(toastRemoveTimer);
+
+    // Remove any existing toasts
+    dom.toastContainer.innerHTML = '';
+
     const toast = document.createElement('div');
     toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
     
@@ -314,9 +328,9 @@ ${modifiersText}
     toast.innerHTML = `${iconSvg}<span>${message}</span>`;
     dom.toastContainer.appendChild(toast);
 
-    setTimeout(() => {
+    toastTimer = setTimeout(() => {
       toast.classList.add('hiding');
-      setTimeout(() => {
+      toastRemoveTimer = setTimeout(() => {
         if (toast.parentNode) toast.parentNode.removeChild(toast);
       }, 300);
     }, 3500);
