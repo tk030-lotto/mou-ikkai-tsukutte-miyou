@@ -26,3 +26,9 @@
 - 起動 → 入力 → クイックチップ → 質問文生成 → クイック調整 → コピートーストの一連のUXフローを収録
 - プロジェクト直下および各種情報フォルダに保存完了
 - Gitコミット & GitHubリモートプッシュ完了
+
+## 2026-08-22 GitHub Pages公開準備完了（未公開状態）
+- `.nojekyll` の配置（Jekyllビルドスキップ設定）
+- `index.html` への想定公開URL（`https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/`）およびTwitterカード（`summary_large_image`）メタタグの追記
+- 全アセット・相対リンクの検証完了
+- Gitコミット & GitHubリモートプッシュ完了
