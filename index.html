@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>もう一回作ってみよう。 - AI開発リスタートアシスタント</title>
+  <meta name="description" content="AI開発で行き詰まったプロジェクトの現状と問題点を整理し、修正して続けるか、作り直すかをAIと一緒に判断するためのWebツール">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- OGP Tags -->
+  <meta property="og:title" content="もう一回作ってみよう。 - AI開発リスタートアシスタント">
+  <meta property="og:description" content="うまくいかなかった？大丈夫。現在の状態を整理して、AIと一緒に『もう一回作ってみる』ための整理ツール。">
+  <meta property="og:type" content="website">
+
+  <!-- SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Cpath d='M16 6a10 10 0 0 1 9.5 6.9.75.75 0 0 1-1.42.49A8.5 8.5 0 0 0 16 7.5a8.5 8.5 0 1 0 8.44 9.4.75.75 0 0 1 1.49.19A10 10 0 1 1 16 6z' fill='url(%23g)'/%3E%3Cpolygon points='23.5,6 27,11 20.5,11' fill='%2310b981'/%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <a href="#" class="brand-link" id="brand-logo" aria-label="トップへ戻る">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+            </svg>
+          </div>
+          <div class="brand-titles">
+            <h1 class="brand-title">もう一回作ってみよう。</h1>
+            <span class="brand-badge">AI開発リスタートアシスタント</span>
+          </div>
+        </a>
+        <div class="header-actions">
+          <button id="theme-indicator" class="icon-btn" title="ダークモード稼働中" aria-label="テーマ表示">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- 1. WELCOME VIEW -->
+      <section id="welcome-view" class="view active" aria-label="起動画面">
+        <div class="hero-card">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>行き詰まったAI開発を再起動</span>
+          </div>
+          <h2 class="hero-headline">
+            うまくいかなかった？<br>
+            <span class="gradient-text">じゃあ、もう一回作ってみよう。</span>
+          </h2>
+          <p class="hero-lead">
+            修正を繰り返して複雑になったり、エラーが直らなくなっても大丈夫。<br>
+            無理に直し続ける必要も、すべてを諦める必要もありません。<br>
+            今の状態を整理して、<strong>「修正して続けるか、作り直すか」</strong>をAIと一緒に判断しましょう。
+          </p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">現状の客観的棚卸し</h3>
+              <p class="feature-desc">何を作っていて、どこで困っているかを3つの質問で素早く整理。</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">4つの再開方針を検討</h3>
+              <p class="feature-desc">「修正継続・一部再作成・シンプル回帰・完全再構築」をAIに検討させます。</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <h3 class="feature-title">即座にAIへ相談可能</h3>
+              <p class="feature-desc">ワンクリックで最適な質問文をコピー。お好みのAIチャットに貼るだけ。</p>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button id="btn-start" class="btn btn-primary btn-lg pulse-hover">
+              <span>リスタートの整理を始める</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. FORM VIEW -->
+      <section id="form-view" class="view" aria-label="入力画面">
+        <div class="form-container">
+          <!-- Step Progress Header -->
+          <div class="step-progress">
+            <div class="step-item active" data-step="1">
+              <span class="step-num">1</span>
+              <span class="step-label">概要</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" data-step="2">
+              <span class="step-num">2</span>
+              <span class="step-label">問題点</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" data-step="3">
+              <span class="step-num">3</span>
+              <span class="step-label">当初の目的</span>
+            </div>
+          </div>
+
+          <form id="restart-form" onsubmit="return false;" novalidate>
+            <!-- Step 1: プロジェクト概要 -->
+            <div class="form-card">
+              <div class="form-card-header">
+                <span class="field-badge">質問 1 / 3</span>
+                <h3 class="field-title">何を作っていましたか？</h3>
+                <p class="field-help">開発していたツールやアプリの概要を教えてください。</p>
+              </div>
+              <div class="field-body">
+                <textarea id="input-project" class="form-textarea" rows="3" placeholder="例: ファイル名の一括置換ツール / CSVデータの集計Webアプリ / 自分用の業務自動化スクリプト など" required></textarea>
+                <div class="chip-group-wrapper">
+                  <span class="chip-group-label">クイック入力例（クリックで追加）:</span>
+                  <div class="chip-group" data-target="input-project">
+                    <button type="button" class="chip">ファイル名変更ツール</button>
+                    <button type="button" class="chip">CSV集計Webアプリ</button>
+                    <button type="button" class="chip">自分用の業務効率化ツール</button>
+                    <button type="button" class="chip">小さなシングルページWebアプリ</button>
+                    <button type="button" class="chip">LINE Bot / 自動通知ツール</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: 問題点 -->
+            <div class="form-card">
+              <div class="form-card-header">
+                <span class="field-badge field-badge-warning">質問 2 / 3</span>
+                <h3 class="field-title">何がうまくいきませんでしたか？</h3>
+                <p class="field-help">現在発生しているエラーや、行き詰まっている原因を自由に入力してください。</p>
+              </div>
+              <div class="field-body">
+                <textarea id="input-problem" class="form-textarea" rows="3" placeholder="例: 修正を繰り返したら動かなくなった / 機能が増えすぎて複雑になった / 思っていた画面と違う / 何が悪いのか自分でも分からない など" required></textarea>
+                <div class="chip-group-wrapper">
+                  <span class="chip-group-label">クイック入力例（クリックで追加）:</span>
+                  <div class="chip-group" data-target="input-problem">
+                    <button type="button" class="chip">修正を繰り返したら動かなくなった</button>
+                    <button type="button" class="chip">機能を追加しすぎて複雑になった</button>
+                    <button type="button" class="chip">思っていた画面・レイアウトと違う</button>
+                    <button type="button" class="chip">エラーが直らない・原因が特定できない</button>
+                    <button type="button" class="chip">何が悪いのか自分でも分からない</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: 当初の目的 -->
+            <div class="form-card">
+              <div class="form-card-header">
+                <span class="field-badge field-badge-success">質問 3 / 3</span>
+                <h3 class="field-title">本当は何を作りたかったですか？</h3>
+                <p class="field-help">原点に立ち返り、一番欲しかった核となる目的やシンプルな状態を教えてください。</p>
+              </div>
+              <div class="field-body">
+                <textarea id="input-goal" class="form-textarea" rows="3" placeholder="例: ボタンを1回押すだけで変換できるシンプルな画面 / 余計な設定なしですぐ使える最小限のツール / 最初の動いていた状態 など" required></textarea>
+                <div class="chip-group-wrapper">
+                  <span class="chip-group-label">クイック入力例（クリックで追加）:</span>
+                  <div class="chip-group" data-target="input-goal">
+                    <button type="button" class="chip">最もシンプルな最小限の機能だけでよかった</button>
+                    <button type="button" class="chip">ボタン1つで素早く動く簡単な画面</button>
+                    <button type="button" class="chip">複雑な設定をなくして最初の目的に戻したい</button>
+                    <button type="button" class="chip">デザインはそのままに、基本動作だけ確実にしたい</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Action Footer -->
+            <div class="form-actions">
+              <div class="form-action-left">
+                <button type="button" id="btn-back-to-welcome" class="btn btn-ghost">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"/>
+                    <polyline points="12 19 5 12 12 5"/>
+                  </svg>
+                  <span>戻る</span>
+                </button>
+                <button type="button" id="btn-clear-draft" class="btn btn-ghost text-muted" title="入力内容を消去">
+                  <span>下書きクリア</span>
+                </button>
+              </div>
+              <div class="form-action-right">
+                <button type="button" id="btn-generate" class="btn btn-primary btn-lg">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                  </svg>
+                  <span>AIへの整理依頼文を生成する</span>
+                </button>
+              </div>
+            </div>
+            <div id="form-error-msg" class="form-error-banner" role="alert" style="display: none;"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- 3. RESULT VIEW -->
+      <section id="result-view" class="view" aria-label="結果画面">
+        <div class="result-container">
+          <!-- Top Header -->
+          <div class="result-header">
+            <div class="result-header-left">
+              <span class="badge badge-success">整理依頼文が完成しました</span>
+              <h2 class="result-title">AIに相談して再開方針を決めましょう</h2>
+            </div>
+            <div class="result-header-right">
+              <button id="btn-copy-top" class="btn btn-emerald pulse-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="copy-icon">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span class="btn-text">質問文をコピー</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Prompt Card -->
+          <div class="prompt-card">
+            <div class="prompt-card-header">
+              <div class="prompt-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>AI送信プロンプト（直接編集可能）</span>
+              </div>
+              <div class="prompt-card-controls">
+                <span id="prompt-stats" class="prompt-stats">0 文字</span>
+                <button type="button" id="btn-reset-prompt" class="btn-xs btn-ghost" title="初期生成文に戻す">リセット</button>
+              </div>
+            </div>
+            <div class="prompt-editor-wrapper">
+              <div id="prompt-content" class="prompt-content" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true"></div>
+            </div>
+          </div>
+
+          <!-- Quick Adjustment Tags -->
+          <div class="adjustment-card">
+            <div class="adjustment-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="21" x2="4" y2="14"/>
+                <line x1="4" y1="10" x2="4" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12" y2="3"/>
+                <line x1="20" y1="21" x2="20" y2="16"/>
+                <line x1="20" y1="12" x2="20" y2="3"/>
+                <line x1="1" y1="14" x2="7" y2="14"/>
+                <line x1="9" y1="8" x2="15" y2="8"/>
+                <line x1="17" y1="16" x2="23" y2="16"/>
+              </svg>
+              <span>AIへの追加要望（クリックでプロンプトに即反映）:</span>
+            </div>
+            <div class="adjustment-chips">
+              <button type="button" class="adj-chip" data-modifier="simple">もっとシンプルに作り直したい</button>
+              <button type="button" class="adj-chip" data-modifier="keep-design">デザインや見た目は残したい</button>
+              <button type="button" class="adj-chip" data-modifier="core-only">最小限のコア機能だけに絞りたい</button>
+              <button type="button" class="adj-chip" data-modifier="repair-first">修正して続ける手順を最優先で知りたい</button>
+              <button type="button" class="adj-chip" data-modifier="scratch-ok">最初から作り直しても構わない</button>
+            </div>
+          </div>
+
+          <!-- Decision Matrix Strategy Guide -->
+          <div class="strategy-card">
+            <div class="strategy-header">
+              <span class="strategy-badge">AIからの判断ポイント</span>
+              <h3 class="strategy-title">AIから返ってくる4つの選択肢の見極め方</h3>
+            </div>
+            <div class="strategy-grid">
+              <div class="strategy-item">
+                <div class="strategy-letter" style="color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">A</div>
+                <div class="strategy-info">
+                  <h4>修正して続ける</h4>
+                  <p>問題箇所が特定できており、現状の構造を活かして安全に修復する場合。</p>
+                </div>
+              </div>
+              <div class="strategy-item">
+                <div class="strategy-letter" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.3);">B</div>
+                <div class="strategy-info">
+                  <h4>一部を作り直す</h4>
+                  <p>全体の基盤は保ちつつ、不具合の起きている特定の機能・ファイルのみ再実装する場合。</p>
+                </div>
+              </div>
+              <div class="strategy-item">
+                <div class="strategy-letter" style="color: #34d399; border-color: rgba(52, 211, 153, 0.3);">C</div>
+                <div class="strategy-info">
+                  <h4>シンプルに戻す</h4>
+                  <p>追加しすぎた余計な機能を削ぎ落とし、当初の目的に原点回帰する場合。</p>
+                </div>
+              </div>
+              <div class="strategy-item">
+                <div class="strategy-letter" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">D</div>
+                <div class="strategy-info">
+                  <h4>最初から作り直す</h4>
+                  <p>構造が複雑化しすぎている場合、一度リセットしてゼロから作った方が早い場合。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="result-actions">
+            <button id="btn-copy-bottom" class="btn btn-emerald btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="copy-icon">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span class="btn-text">質問文をコピーしてAIに送る</span>
+            </button>
+            <button id="btn-edit-inputs" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              <span>入力内容を修正する</span>
+            </button>
+            <button id="btn-restart-all" class="btn btn-ghost text-muted">
+              <span>もう一度最初から</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p class="footer-copy">© 2026 tk030 · もう一回作ってみよう。ツール · <a href="LICENSE" target="_blank" rel="noopener">MIT License</a></p>
+        <p class="footer-sub">AI開発で迷ったとき、いつでも最初からやり直せる勇気と整理を。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
