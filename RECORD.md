@@ -32,3 +32,14 @@
 - `index.html` への想定公開URL（`https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/`）およびTwitterカード（`summary_large_image`）メタタグの追記
 - 全アセット・相対リンクの検証完了
 - Gitコミット & GitHubリモートプッシュ完了
+
+## 2026-08-26 コードレビュー指摘事項の全件修正 & 品質向上
+- `code_review_report.md` の事実確認を実施し、全指摘事項（12件）の実装・構造上の事実を確認
+- 🟥 UXバグ修正: 「もう一度最初から」での二重確認ダイアログを解消（`clearDraft(skipConfirm)` 拡張）
+- 🟥 UXバグ修正: コピーボタン連打・交互押し時のタイマー競合を解消（`WeakMap` による個別タイマー管理 & `data-originalText` キャッシュ）
+- 🟧 アクセシビリティ補強: `@media (prefers-reduced-motion: reduce)` によるアニメーション軽減対応、`:focus-visible` スタイル定義、`#theme-indicator` の非インタラクティブ要素化（`div[role=status]`）、`#prompt-content` への `aria-label` 付与、画面切替時の見出しフォーカス移動
+- 🟧 堅牢性・セキュリティ: `showToast` の DOM 生成（`textContent`）による安全化、`contenteditable` 貼り付け時のプレーンテキスト化（装飾HTML混入防止）
+- 🟧 ロジック・文言整合: バリデーション文言への「当初の目的」追加、ステップインジケータ更新ロジックの改善
+- 🟦 スタイル集約: インラインスタイルを `.feature-icon-*` / `.strategy-letter-*` の専用CSSクラスに移行
+- 自動検証（構文・DOM ID・CSS波括弧・ロジック）全項目 PASS を確認
+- Gitコミット & GitHubリモートプッシュ完了
