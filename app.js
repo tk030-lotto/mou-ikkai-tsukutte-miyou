@@ -39,7 +39,7 @@
 
   // Timer Lifecycle Management
   let focusTimer = null;
-  let copyButtonTimer = null;
+  const copyButtonTimers = new WeakMap();
   let toastTimer = null;
   let toastRemoveTimer = null;
 
@@ -82,7 +82,7 @@
   // ==========================================================================
 
   /**
-   * Switch active view with smooth animation
+   * Switch active view with smooth animation and accessible focus management
    * @param {'welcome' | 'form' | 'result'} targetView
    */
   function switchView(targetView) {
@@ -100,24 +100,35 @@
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    if (targetView === 'form') {
+    if (targetView === 'welcome') {
+      const heading = dom.views.welcome.querySelector('.hero-headline');
+      if (heading) heading.focus();
+    } else if (targetView === 'form') {
       if (focusTimer) clearTimeout(focusTimer);
       focusTimer = setTimeout(() => dom.inputs.project.focus(), 150);
       updateStepProgress();
+    } else if (targetView === 'result') {
+      const heading = dom.views.result.querySelector('.result-title');
+      if (heading) heading.focus();
     }
   }
 
   /**
-   * Update form step progress indicators
+   * Update form step progress indicators based on input states
    */
   function updateStepProgress() {
-    let completedSteps = 1;
-    if (dom.inputs.project.value.trim().length > 0) completedSteps = 2;
-    if (dom.inputs.problem.value.trim().length > 0) completedSteps = 3;
+    const hasProject = dom.inputs.project.value.trim().length > 0;
+    const hasProblem = dom.inputs.problem.value.trim().length > 0;
+    const hasGoal = dom.inputs.goal.value.trim().length > 0;
+
+    let activeStepLevel = 1;
+    if (hasProject) activeStepLevel = 2;
+    if (hasProblem) activeStepLevel = 3;
+    if (hasGoal && activeStepLevel < 3) activeStepLevel = 3;
 
     dom.stepItems.forEach(item => {
       const stepNum = parseInt(item.dataset.step, 10);
-      if (stepNum <= completedSteps) {
+      if (stepNum <= activeStepLevel) {
         item.classList.add('active');
       } else {
         item.classList.remove('active');
@@ -222,8 +233,8 @@ ${modifiersText}
     }
   }
 
-  function clearDraft() {
-    if (dom.inputs.project.value || dom.inputs.problem.value || dom.inputs.goal.value) {
+  function clearDraft(skipConfirm = false) {
+    if (!skipConfirm && (dom.inputs.project.value || dom.inputs.problem.value || dom.inputs.goal.value)) {
       if (!confirm('入力中の下書きをすべて消去しますか？')) return;
     }
     dom.inputs.project.value = '';
@@ -287,27 +298,35 @@ ${modifiersText}
   }
 
   /**
-   * Micro-animation for copy button
+   * Micro-animation for copy button with independent timer lifecycle per button
    * @param {HTMLElement} btn
    */
   function animateCopyButton(btn) {
     if (!btn) return;
-    if (copyButtonTimer) clearTimeout(copyButtonTimer);
-    const originalText = btn.querySelector('.btn-text') ? btn.querySelector('.btn-text').textContent : btn.textContent;
-    btn.classList.add('copied');
-    if (btn.querySelector('.btn-text')) {
-      btn.querySelector('.btn-text').textContent = 'コピー完了！';
+    if (copyButtonTimers.has(btn)) {
+      clearTimeout(copyButtonTimers.get(btn));
     }
-    copyButtonTimer = setTimeout(() => {
+    const textEl = btn.querySelector('.btn-text');
+    const originalText = textEl ? (textEl.dataset.originalText || textEl.textContent) : btn.textContent;
+    if (textEl && !textEl.dataset.originalText) {
+      textEl.dataset.originalText = originalText;
+    }
+    btn.classList.add('copied');
+    if (textEl) {
+      textEl.textContent = 'コピー完了！';
+    }
+    const timer = setTimeout(() => {
       btn.classList.remove('copied');
-      if (btn.querySelector('.btn-text')) {
-        btn.querySelector('.btn-text').textContent = originalText;
+      if (textEl) {
+        textEl.textContent = textEl.dataset.originalText || originalText;
       }
+      copyButtonTimers.delete(btn);
     }, 2000);
+    copyButtonTimers.set(btn, timer);
   }
 
   /**
-   * Display toast notification
+   * Display toast notification with safe DOM construction
    * @param {string} message
    * @param {'success' | 'error'} type
    */
@@ -325,7 +344,11 @@ ${modifiersText}
       ? `<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
       : `<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
 
-    toast.innerHTML = `${iconSvg}<span>${message}</span>`;
+    const span = document.createElement('span');
+    span.textContent = message;
+
+    toast.innerHTML = iconSvg;
+    toast.appendChild(span);
     dom.toastContainer.appendChild(toast);
 
     toastTimer = setTimeout(() => {
@@ -345,9 +368,9 @@ ${modifiersText}
     const problemVal = dom.inputs.problem.value.trim();
     const goalVal = dom.inputs.goal.value.trim();
 
-    // Validation: at least project or problem should be filled
+    // Validation: at least one of the fields should be filled
     if (!projectVal && !problemVal && !goalVal) {
-      showFormError('少なくとも1つ以上の項目（作っていたもの、または困っていること）を入力してください');
+      showFormError('少なくとも1つ以上の項目（作っていたもの、困っていること、または当初の目的）を入力してください');
       dom.inputs.project.focus();
       return;
     }
@@ -457,8 +480,21 @@ ${modifiersText}
       });
     });
 
-    // Prompt Editor Direct Input
+    // Prompt Editor Direct Input & Paste Control
     dom.promptContent.addEventListener('input', () => {
+      state.isCustomEdited = true;
+      updatePromptStats();
+    });
+
+    dom.promptContent.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      selection.deleteFromDocument();
+      const textNode = document.createTextNode(text);
+      selection.getRangeAt(0).insertNode(textNode);
+      selection.collapseToEnd();
       state.isCustomEdited = true;
       updatePromptStats();
     });
@@ -487,7 +523,7 @@ ${modifiersText}
     dom.btnEditInputs.addEventListener('click', () => switchView('form'));
     dom.btnRestartAll.addEventListener('click', () => {
       if (confirm('最初からやり直しますか？（入力した下書きもリセットされます）')) {
-        clearDraft();
+        clearDraft(true);
         state.activeModifiers.clear();
         dom.adjChips.forEach(c => c.classList.remove('active'));
         state.isCustomEdited = false;

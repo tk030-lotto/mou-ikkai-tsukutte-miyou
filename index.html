@@ -45,10 +45,10 @@
           </div>
         </a>
         <div class="header-actions">
-          <button id="theme-indicator" class="icon-btn" title="ダークモード稼働中" aria-label="テーマ表示">
+          <div id="theme-indicator" class="icon-btn" title="ダークモード稼働中" role="status" aria-label="テーマ表示">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="8" x2="12" y2="3"/>
               <line x1="12" y1="21" x2="12" y2="23"/>
               <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
               <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
@@ -57,7 +57,7 @@
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
             </svg>
-          </button>
+          </div>
         </div>
       </div>
     </header>
@@ -71,7 +71,7 @@
             <span class="pulse-dot"></span>
             <span>行き詰まったAI開発を再起動</span>
           </div>
-          <h2 class="hero-headline">
+          <h2 class="hero-headline" tabindex="-1">
             うまくいかなかった？<br>
             <span class="gradient-text">じゃあ、もう一回作ってみよう。</span>
           </h2>
@@ -83,7 +83,7 @@
 
           <div class="feature-grid">
             <div class="feature-card">
-              <div class="feature-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">
+              <div class="feature-icon feature-icon-indigo">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polygon points="12 2 2 7 12 12 22 7 12 2"/>
                   <polyline points="2 17 12 22 22 17"/>
@@ -95,7 +95,7 @@
             </div>
 
             <div class="feature-card">
-              <div class="feature-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+              <div class="feature-icon feature-icon-emerald">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
                 </svg>
@@ -105,7 +105,7 @@
             </div>
 
             <div class="feature-card">
-              <div class="feature-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+              <div class="feature-icon feature-icon-amber">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                 </svg>
@@ -251,7 +251,7 @@
           <div class="result-header">
             <div class="result-header-left">
               <span class="badge badge-success">整理依頼文が完成しました</span>
-              <h2 class="result-title">AIに相談して再開方針を決めましょう</h2>
+              <h2 class="result-title" tabindex="-1">AIに相談して再開方針を決めましょう</h2>
             </div>
             <div class="result-header-right">
               <button id="btn-copy-top" class="btn btn-emerald pulse-btn">
@@ -279,7 +279,7 @@
               </div>
             </div>
             <div class="prompt-editor-wrapper">
-              <div id="prompt-content" class="prompt-content" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true"></div>
+              <div id="prompt-content" class="prompt-content" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true" aria-label="AIリスタート相談プロンプト（直接編集可能）"></div>
             </div>
           </div>
 
@@ -316,28 +316,28 @@
             </div>
             <div class="strategy-grid">
               <div class="strategy-item">
-                <div class="strategy-letter" style="color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">A</div>
+                <div class="strategy-letter strategy-letter-a">A</div>
                 <div class="strategy-info">
                   <h4>修正して続ける</h4>
                   <p>問題箇所が特定できており、現状の構造を活かして安全に修復する場合。</p>
                 </div>
               </div>
               <div class="strategy-item">
-                <div class="strategy-letter" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.3);">B</div>
+                <div class="strategy-letter strategy-letter-b">B</div>
                 <div class="strategy-info">
                   <h4>一部を作り直す</h4>
                   <p>全体の基盤は保ちつつ、不具合の起きている特定の機能・ファイルのみ再実装する場合。</p>
                 </div>
               </div>
               <div class="strategy-item">
-                <div class="strategy-letter" style="color: #34d399; border-color: rgba(52, 211, 153, 0.3);">C</div>
+                <div class="strategy-letter strategy-letter-c">C</div>
                 <div class="strategy-info">
                   <h4>シンプルに戻す</h4>
                   <p>追加しすぎた余計な機能を削ぎ落とし、当初の目的に原点回帰する場合。</p>
                 </div>
               </div>
               <div class="strategy-item">
-                <div class="strategy-letter" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">D</div>
+                <div class="strategy-letter strategy-letter-d">D</div>
                 <div class="strategy-info">
                   <h4>最初から作り直す</h4>
                   <p>構造が複雑化しすぎている場合、一度リセットしてゼロから作った方が早い場合。</p>
