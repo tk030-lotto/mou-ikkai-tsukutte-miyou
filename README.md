@@ -177,9 +177,9 @@ AI APIも内蔵しません。
 
 ## 公開
 
-GitHub Pagesで利用できる無料Webツールとして公開します。
+- **Webアプリ URL**: [https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/](https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/)
 
-インストールは必要ありません。
+GitHub Pagesで利用できる無料Webツールとして公開しています。ブラウザから直接ご利用いただけます（インストール不要）。
 
 ---
 

@@ -41,5 +41,13 @@
 - 🟧 堅牢性・セキュリティ: `showToast` の DOM 生成（`textContent`）による安全化、`contenteditable` 貼り付け時のプレーンテキスト化（装飾HTML混入防止）
 - 🟧 ロジック・文言整合: バリデーション文言への「当初の目的」追加、ステップインジケータ更新ロジックの改善
 - 🟦 スタイル集約: インラインスタイルを `.feature-icon-*` / `.strategy-letter-*` の専用CSSクラスに移行
-- 自動検証（構文・DOM ID・CSS波括弧・ロジック）全項目 PASS を確認
 - Gitコミット & GitHubリモートプッシュ完了
+
+## 2026-08-30 GitHubリポジトリ公開 & GitHub Pagesデプロイ完了
+- リポジトリの可視性を `PRIVATE` から `PUBLIC` に変更（`gh repo edit --visibility public`）
+- GitHub Pages を有効化（`main` ブランチのルート `/` 配信）
+- デプロイ完了（ステータス: built, HTTP 200 応答確認）
+- 公開 URL: `https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/`
+- `README.md` に公開 URL を追記
+- Gitコミット & GitHubリモートプッシュ完了
+
