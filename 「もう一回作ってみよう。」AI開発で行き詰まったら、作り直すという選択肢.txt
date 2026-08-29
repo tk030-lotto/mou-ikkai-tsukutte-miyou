@@ -1,5 +1,8 @@
 # 「もう一回作ってみよう。」AI開発で行き詰まったら、作り直すという選択肢
 
+▼ ツールはこちら（無料・ブラウザで利用可能）
+https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/
+
 AIを使ってソフトウェアを作っていると、うまくいかないことがあります。
 
 最初は順調だった。
@@ -583,4 +586,12 @@ AIを使った開発では、
 
 そんな使い方をしてもらえればと思っています。
 
-#AI開発 #生成AI #AI開発ツール #個人開発 #Webツール #AI活用 #ソフトウェア開発 #開発効率化 #GitHubPages #リスタート
+---
+
+▼ 公開Webツール（GitHub Pages）
+https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/
+
+▼ GitHubリポジトリ
+https://github.com/tk030-lotto/mou-ikkai-tsukutte-miyou
+
+#AI開発 #生成AI #AI開発ツール #個人開発 #Webツール #AI活用 #ソフトウェア開発 #開発効率化 #GitHubPages #リスタート #プログラミング

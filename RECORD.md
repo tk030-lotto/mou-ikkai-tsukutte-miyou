@@ -49,5 +49,7 @@
 - デプロイ完了（ステータス: built, HTTP 200 応答確認）
 - 公開 URL: `https://tk030-lotto.github.io/mou-ikkai-tsukutte-miyou/`
 - `README.md` に公開 URL を追記
+- `「もう一回作ってみよう。」AI開発で行き詰まったら、作り直すという選択肢.txt` のタイトル直下および末尾に GitHub Pages URL、GitHubリポジトリURL、ハッシュタグを追記
 - Gitコミット & GitHubリモートプッシュ完了
+
 
